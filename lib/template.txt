@@ -1,0 +1,60 @@
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+class Elementor_orenda_!idnospace! extends \Elementor\Widget_Base {
+	public function get_name() {
+		return 'orenda-!widgetid!';
+	}
+
+	public function get_title() {
+		return esc_html__( 'Orenda !title!', 'orenda-elementor' );
+	}
+
+	public function get_icon() {
+		return 'eicon-number-field';
+	}
+
+	public function get_custom_help_url() {
+		return '!helpurl!';
+	}
+
+	public function get_categories() {
+		return !categories!;
+	}
+
+	public function get_keywords() {
+		return !keywords!;
+	}
+
+	!controls!
+
+	public function get_script_depends() {
+		$stage = orenda_getStage();
+		$url = 'https://!urlid!'.esc_attr($stage).'.orenda.link';
+		$obj = array('id' => "#!domid!", 'url' => $url);
+
+		wp_register_script( 'orenda-!idnospace!-widget', $url, [], null, true ); 
+		wp_enqueue_script('orenda-!idnospace!-widget');
+
+		wp_register_script( 'orenda-reload-react-!idnospace!', ORENDA_ELEMENTOR_PLUGIN_URL.'assets/js/editor.js' , ['jquery'], null,true );
+		wp_enqueue_script('orenda-reload-react-!idnospace!');
+
+		//Send empty object if not in editor
+		( ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) ? $widgetObj = '{}' : $widgetObj = json_encode($obj);
+		wp_localize_script( 'orenda-reload-react-!idnospace!', 'orendaWidgetUrl', $widgetObj );
+
+		return ['orenda-reload-react-!idnospace!', 'orenda-!idnospace!-widget'];
+	}
+
+	protected function render() {		
+		
+		echo '<!--Orenda Inline Block-->
+        <div id="!domid!" ';
+		$settings = $this->get_settings_for_display();
+		!render!
+		echo '></div>';
+	}
+
+}

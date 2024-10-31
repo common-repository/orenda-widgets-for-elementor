@@ -1,0 +1,17 @@
+/* .icon [class^="orenda-el-icon"] {
+  height: 24px;
+  width: 100%;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+} */
+.icon .orenda-el-icon-vcard {
+  height: 24px;
+  width: 100%;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(https://app-themes-master.s3.eu-west-1.amazonaws.com/wp-assets/flags/gbp.svg);
+}
